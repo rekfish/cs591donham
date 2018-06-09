@@ -28,7 +28,9 @@ router.get('/:var1',function (req,res){
     var1.save(function (err, var1) {
         if (err) return console.error("duplicate");
     });
-	res.send(var1)
+	Word.find({name:req.params.var1},function (err,AllStrings) {
+        res.json(AllStrings)
+    })
 });
 
 router.post('/post', function(req, res){
@@ -38,7 +40,11 @@ router.post('/post', function(req, res){
         if (err) return console.error("duplicate");
     });
     res.json({name:value, len: value.length})
-
+    //I attempted to return from the DB but I kept getting a nil json
+    //
+    // Word.findById({name:req.params.id},function (err,AllStrings2) {
+    //     res.json(AllStrings2)
+    // })
 
 });
 router.delete('/delete', function(req, res){
